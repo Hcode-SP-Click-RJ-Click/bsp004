@@ -1,10 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { CreateCategoriesDTO } from './dto/createCategories.dto';
+import { UpdateCategoriesDTO } from './dto/updateCategories.dto';
 
 @Injectable()
 export class CategoriesService {
   // Cria uma nova categoria
-  async create(name: string) {
-    return `Criando uma nova categoria ${name['name']}`;
+  async create(createCategoriesDTO: CreateCategoriesDTO) {
+    return createCategoriesDTO;
   }
 
   // Retorna todas as categorias
@@ -18,8 +20,8 @@ export class CategoriesService {
   }
 
   // Atualiza uma categoria
-  async update(id: number, name: string) {
-    return `Retornando categoria atualizada id ${id} e novo nome ${name['name']}`;
+  async update(id: number, updatecategoriesDTO: UpdateCategoriesDTO) {
+    return { id: id, data: updatecategoriesDTO };
   }
 
   // Exclui uma categoria

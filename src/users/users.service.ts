@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { CreateUsersDTO } from './dto/createUsers.dto';
 
 @Injectable()
 export class UsersService {
   //Cria um usuário no banco de dados
-  async create(user: string) {
-    return `Criando um novo usuário ${user['user']}`;
+  async create(createUsersDTO: CreateUsersDTO) {
+    return createUsersDTO;
   }
 
   //Retorna todos os usuários cadastrados
