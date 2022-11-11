@@ -1,45 +1,62 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePlacesServiceDTO } from './dto/create-placesService.dto';
 import { UpdatePlacesServiceDTO } from './dto/update-placesServices.dto';
 
 @Injectable()
 export class PlacesServiceService {
+  constructor(private readonly prisma: PrismaService) {}
+
   // Cria um novo registro
   async create(createPlacesServiceDTO: CreatePlacesServiceDTO) {
-    return {
-      message: 'Criando um novo registro',
-      data: createPlacesServiceDTO.name,
-    };
+    const { name, description, price, placeId } = createPlacesServiceDTO;
+
+    return this.prisma.services.create({
+      data: {
+        name,
+        description,
+        price: Number(price),
+        placeId: Number(placeId),
+      },
+    });
   }
 
   // Lista todos os registros
   async findAll() {
-    return {
-      message: 'Listando todos os registros',
-    };
+    return this.prisma.services.findMany();
   }
 
   // Lista um único registro
   async findOne(id: number) {
-    return {
-      message: 'Retornando um unico registro',
-      id: id,
-    };
+    return this.prisma.services.findUnique({
+      where: {
+        id,
+      },
+    });
   }
 
   // Atualiza um registro
   async update(id: number, updatePlacesServiceDTO: UpdatePlacesServiceDTO) {
-    return {
-      message: 'Retornando dados atualizdos do registro',
-      data: updatePlacesServiceDTO.name,
-    };
+    const { name, description, price, placeId } = updatePlacesServiceDTO;
+    return this.prisma.services.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        description,
+        price: Number(price),
+        placeId: Number(placeId),
+      },
+    });
   }
 
   // Exclui um registro
   async delete(id: number) {
-    return {
-      message: 'Excluindo um registro',
-      id: id,
-    };
+    return this.prisma.services.delete({
+      where: {
+        id,
+      },
+    });
   }
 }

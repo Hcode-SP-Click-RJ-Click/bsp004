@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  id     Int      @id @default(autoincrement())
+  name   String   @unique
+  places places[]
+}
+
+model places {
+  id         Int        @id @default(autoincrement())
+  name       String
+  categoryId Int
+  categories categories @relation(fields: [categoryId], references: [id])
+  services   services[]
+
+  @@index([categoryId], map: "places_categoryId_fkey")
+}
+
+model services {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+  price       Int
+  placeId     Int
+  places      places  @relation(fields: [placeId], references: [id])
+
+  @@index([placeId], map: "services_placeId_fkey")
+}

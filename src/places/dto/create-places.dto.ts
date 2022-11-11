@@ -1,15 +1,11 @@
 import { IsNotEmpty, IsNumberString, IsString } from 'class-validator';
 
-export class CreatePlacesServiceDTO {
+export class CreatePlacesDTO {
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @IsString()
-  description: string;
-
   @IsNotEmpty()
   @IsNumberString()
-  price: number;
-  placeId: number;
+  categoryId: number;
 }
