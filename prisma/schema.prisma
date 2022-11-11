@@ -33,3 +33,10 @@ model services {
 
   @@index([placeId], map: "services_placeId_fkey")
 }
+
+model users {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String
+  password String
+}

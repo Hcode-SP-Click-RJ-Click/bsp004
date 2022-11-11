@@ -28,7 +28,11 @@ export class CategoriesService {
         id,
       },
       include: {
-        places: true,
+        places: {
+          include: {
+            services: true,
+          },
+        },
       },
     });
   }
