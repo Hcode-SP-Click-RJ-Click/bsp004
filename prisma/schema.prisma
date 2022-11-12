@@ -37,6 +37,6 @@ model services {
 model users {
   id       Int    @id @default(autoincrement())
   name     String
-  email    String
+  email    String @unique
   password String
 }

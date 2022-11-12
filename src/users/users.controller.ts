@@ -7,7 +7,9 @@ import {
   Patch,
   Post,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CreateUsersDTO } from './dto/createUsers.dto';
 import { UpdateUsersDto } from './dto/updateUsers.dto';
 import { UsersService } from './users.service';
@@ -21,6 +23,7 @@ export class UsersController {
     return this.usersService.create(createUsersDTO);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll() {
     return this.usersService.findAll();
